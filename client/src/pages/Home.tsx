@@ -1,34 +1,36 @@
 import { motion } from "framer-motion";
-import { LucideIcon, Github, Linkedin, Mail, Shield, Terminal, Lock } from "lucide-react";
+import { LucideIcon, Github, Linkedin, Mail, Shield, Terminal, Lock, Cpu, Wrench } from "lucide-react";
 
-interface Project {
-  title: string;
-  description: string;
-  tags: string[];
-  link: string;
-  icon: LucideIcon;
+interface Skill {
+  name: string;
+  value: number;
+  label: string;
+  color: string;
 }
 
-const interests: Project[] = [
+const skills: Skill[] = [
+  { name: "Cybersecurity A1", value: 86, label: "86%", color: "text-blue-500" },
+  { name: "Texnikani tushunish", value: 96, label: "96%", color: "text-emerald-500" },
+  { name: "Kompyuter tuzatish", value: 65, label: "65%", color: "text-orange-500" },
+];
+
+const interests = [
   {
     title: "Network Security",
     description: "Learning how to secure networks and understand common vulnerabilities.",
     tags: ["Security", "Networking"],
-    link: "#",
     icon: Shield
   },
   {
     title: "Ethical Hacking",
     description: "Exploring the fundamentals of penetration testing and system defense.",
     tags: ["Cybersecurity", "Ethics"],
-    link: "#",
     icon: Terminal
   },
   {
     title: "Digital Privacy",
     description: "Understanding data protection and how to stay safe in the digital world.",
     tags: ["Privacy", "Encryption"],
-    link: "#",
     icon: Lock
   }
 ];
@@ -69,14 +71,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interests/Skills Section */}
+      {/* Skills Progress Section */}
+      <section className="py-24 px-4 relative bg-white/[0.01]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">Mahoratlarim</h2>
+            <p className="text-white/40">O'z ustimda ishlash natijasida erishilgan ko'rsatkichlar</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {skills.map((skill, index) => (
+              <SkillCircle key={skill.name} skill={skill} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Interests Section */}
       <section className="py-32 px-4 relative">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-xl">
               <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tight">Qiziqishlarim</h2>
               <p className="text-white/40 text-lg">
-                Hozirda men kiber-xavfsizlikning turli yo'nalishlarini o'rganmoqdaman. Har bir yangi bilim raqamli xavfsizlik sirlarini ochishga yordam beradi.
+                Hozirda men kiber-xavfsizlikning turli yo'nalishlarini o'rganmoqdaman.
               </p>
             </div>
           </div>
@@ -101,13 +118,10 @@ export default function Home() {
               <h2 className="text-3xl font-display font-bold mb-8">Men haqimda</h2>
               <div className="space-y-6 text-white/60 leading-relaxed text-lg font-light">
                 <p>
-                  Salom! Mening ismim Muhammadali. Men 13 yoshdaman va Cybersecurity (Kiber-xavfsizlik) sohasiga juda qiziqaman.
+                  Salom! Mening ismim Muhammadali. Men 13 yoshdaman va Cybersecurity sohasiga juda qiziqaman.
                 </p>
                 <p>
-                  Hozircha katta loyihalarda qatnashmagan bo'lsam-da, har kuni o'z bilimlarimni oshirish ustida ishlayapman. Men uchun texnologiya bu shunchaki vosita emas, balki kashf qilinishi kerak bo'lgan katta bir dunyo.
-                </p>
-                <p>
-                  Kelajakda kuchli mutaxassis bo'lishni va raqamli tizimlarni himoya qilishni maqsad qilganman.
+                  Hozircha katta loyihalarda qatnashmagan bo'lsam-da, har kuni o'z bilimlarimni oshirish ustida ishlayapman.
                 </p>
               </div>
             </motion.div>
@@ -124,29 +138,73 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer/Contact */}
+      {/* Footer */}
       <footer className="py-32 px-4 text-center">
         <div className="max-w-2xl mx-auto">
           <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 tracking-tighter">Muloqot uchun</h2>
-          <p className="text-xl text-white/40 mb-12 font-light">
-            Savollaringiz bo'lsa yoki shunchaki fikr almashmoqchi bo'lsangiz, men bilan bog'laning.
-          </p>
           <a
             href="mailto:contact@muhammadali.me"
-            className="inline-flex items-center justify-center px-10 py-5 bg-white text-black rounded-full font-bold hover:bg-white/90 hover:scale-105 active:scale-95 transition-all duration-300"
+            className="inline-flex items-center justify-center px-10 py-5 bg-white text-black rounded-full font-bold hover:bg-white/90 hover:scale-105 transition-all duration-300"
           >
             Xabar yuboring
           </a>
-        </div>
-        <div className="mt-32 pt-8 border-t border-white/5 text-white/20 text-sm font-mono uppercase tracking-[0.2em]">
-          &copy; 2024 Muhammadali &bull; Security Student
         </div>
       </footer>
     </div>
   );
 }
 
-function InterestCard({ item, index }: { item: Project; index: number }) {
+function SkillCircle({ skill, index }: { skill: Skill; index: number }) {
+  const radius = 45;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (skill.value / 100) * circumference;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      viewport={{ once: true }}
+      className="flex flex-col items-center group"
+    >
+      <div className="relative w-40 h-40 mb-6">
+        <svg className="w-full h-full -rotate-90">
+          <circle
+            cx="80"
+            cy="80"
+            r={radius}
+            fill="transparent"
+            stroke="currentColor"
+            strokeWidth="8"
+            className="text-white/5"
+          />
+          <motion.circle
+            cx="80"
+            cy="80"
+            r={radius}
+            fill="transparent"
+            stroke="currentColor"
+            strokeWidth="8"
+            strokeDasharray={circumference}
+            initial={{ strokeDashoffset: circumference }}
+            whileInView={{ strokeDashoffset: offset }}
+            transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+            viewport={{ once: true }}
+            className={skill.color}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center flex-col">
+          <span className="text-2xl font-bold font-display">{skill.label}</span>
+        </div>
+      </div>
+      <span className="text-lg font-medium text-white/60 group-hover:text-white transition-colors">
+        {skill.name}
+      </span>
+    </motion.div>
+  );
+}
+
+function InterestCard({ item, index }: { item: any; index: number }) {
   const Icon = item.icon;
   return (
     <motion.div
@@ -154,15 +212,15 @@ function InterestCard({ item, index }: { item: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
       viewport={{ once: true }}
-      className="group p-8 bg-white/[0.03] border border-white/10 rounded-[32px] hover:bg-white/[0.06] hover:border-white/20 transition-all duration-500"
+      className="group p-8 bg-white/[0.03] border border-white/10 rounded-[32px] hover:bg-white/[0.06] transition-all duration-500"
     >
-      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-500">
-        <Icon className="w-6 h-6 text-white/60 group-hover:text-blue-400 transition-colors" />
+      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6">
+        <Icon className="w-6 h-6 text-white/60" />
       </div>
-      <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">{item.title}</h3>
+      <h3 className="text-xl font-bold mb-3">{item.title}</h3>
       <p className="text-white/40 leading-relaxed font-light mb-6">{item.description}</p>
       <div className="flex flex-wrap gap-2">
-        {item.tags.map((tag) => (
+        {item.tags.map((tag: string) => (
           <span key={tag} className="text-[10px] uppercase tracking-widest font-bold px-2 py-1 bg-white/5 rounded-full text-white/40">
             {tag}
           </span>
@@ -177,7 +235,7 @@ function SocialLink({ href, icon: Icon, label }: { href: string; icon: LucideIco
     <a
       href={href}
       aria-label={label}
-      className="w-14 h-14 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 hover:border-white/20 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+      className="w-14 h-14 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-300 hover:-translate-y-1"
     >
       <Icon size={24} strokeWidth={1.5} />
     </a>
