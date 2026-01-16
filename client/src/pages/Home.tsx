@@ -1,57 +1,66 @@
 import { motion } from "framer-motion";
-import { LucideIcon, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { LucideIcon, Github, Linkedin, Mail, Shield, Terminal, Lock } from "lucide-react";
 
 interface Project {
   title: string;
   description: string;
   tags: string[];
   link: string;
+  icon: LucideIcon;
 }
 
-const projects: Project[] = [
+const interests: Project[] = [
   {
-    title: "Project One",
-    description: "A high-performance web application built with modern technologies.",
-    tags: ["React", "TypeScript", "Tailwind"],
-    link: "#"
+    title: "Network Security",
+    description: "Learning how to secure networks and understand common vulnerabilities.",
+    tags: ["Security", "Networking"],
+    link: "#",
+    icon: Shield
   },
   {
-    title: "Project Two",
-    description: "Innovative mobile-first solution for digital commerce.",
-    tags: ["Next.js", "Node.js", "PostgreSQL"],
-    link: "#"
+    title: "Ethical Hacking",
+    description: "Exploring the fundamentals of penetration testing and system defense.",
+    tags: ["Cybersecurity", "Ethics"],
+    link: "#",
+    icon: Terminal
   },
   {
-    title: "Project Three",
-    description: "Beautifully designed user interface for creative professionals.",
-    tags: ["Framer Motion", "Shadcn UI", "Vite"],
-    link: "#"
+    title: "Digital Privacy",
+    description: "Understanding data protection and how to stay safe in the digital world.",
+    tags: ["Privacy", "Encryption"],
+    link: "#",
+    icon: Lock
   }
 ];
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#0a0a0b] text-white selection:bg-primary/30">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse delay-700" />
+          <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[128px] animate-pulse" />
+          <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[128px] animate-pulse delay-700" />
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-50 contrast-150 pointer-events-none" />
         </div>
 
         <div className="relative z-10 max-w-4xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tight mb-6">
-              Fullstack <span className="text-muted-foreground">Developer</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-sm font-medium mb-8">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Cybersecurity Enthusiast
+            </div>
+            <h1 className="text-6xl md:text-9xl font-display font-bold tracking-tighter mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+              Muhammadali
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-              Crafting elegant digital experiences through clean code and thoughtful design. Focused on building scalable applications that solve real-world problems.
+            <p className="text-lg md:text-xl text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+              13 yoshli kiber-xavfsizlikka qiziquvchi yosh tadqiqotchi. Raqamli dunyoni xavfsizroq qilish va tizimlar qanday ishlashini o'rganish yo'lidaman.
             </p>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-6">
               <SocialLink href="#" icon={Github} label="Github" />
               <SocialLink href="#" icon={Linkedin} label="LinkedIn" />
               <SocialLink href="#" icon={Mail} label="Email" />
@@ -60,79 +69,105 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="py-24 px-4 bg-muted/30">
+      {/* Interests/Skills Section */}
+      <section className="py-32 px-4 relative">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-display font-bold mb-12">Selected Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <ProjectCard key={index} project={project} index={index} />
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="max-w-xl">
+              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 tracking-tight">Qiziqishlarim</h2>
+              <p className="text-white/40 text-lg">
+                Hozirda men kiber-xavfsizlikning turli yo'nalishlarini o'rganmoqdaman. Har bir yangi bilim raqamli xavfsizlik sirlarini ochishga yordam beradi.
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {interests.map((item, index) => (
+              <InterestCard key={index} item={item} index={index} />
             ))}
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-24 px-4">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-display font-bold mb-6">About Me</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              I specialize in building robust fullstack applications. My approach combines technical excellence with a keen eye for user experience. Whether it's architecting a complex database schema or fine-tuning an animation, I strive for perfection in every pixel and line of code.
-            </p>
-          </div>
-          <div className="aspect-square bg-muted rounded-2xl overflow-hidden relative group">
-            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-            {/* Placeholder for user image */}
-            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-              [Image Placeholder]
+      <section className="py-32 px-4 bg-white/[0.02] border-y border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-display font-bold mb-8">Men haqimda</h2>
+              <div className="space-y-6 text-white/60 leading-relaxed text-lg font-light">
+                <p>
+                  Salom! Mening ismim Muhammadali. Men 13 yoshdaman va Cybersecurity (Kiber-xavfsizlik) sohasiga juda qiziqaman.
+                </p>
+                <p>
+                  Hozircha katta loyihalarda qatnashmagan bo'lsam-da, har kuni o'z bilimlarimni oshirish ustida ishlayapman. Men uchun texnologiya bu shunchaki vosita emas, balki kashf qilinishi kerak bo'lgan katta bir dunyo.
+                </p>
+                <p>
+                  Kelajakda kuchli mutaxassis bo'lishni va raqamli tizimlarni himoya qilishni maqsad qilganman.
+                </p>
+              </div>
+            </motion.div>
+            <div className="aspect-[4/5] bg-white/5 rounded-3xl overflow-hidden relative group border border-white/10">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0b] via-transparent to-transparent z-10" />
+              <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center space-y-4">
+                <Shield className="w-16 h-16 text-blue-500/50 mb-4" />
+                <div className="text-white/20 font-mono text-sm tracking-widest uppercase">Security Profile</div>
+                <div className="w-full h-px bg-white/10" />
+                <div className="text-white/40 font-light italic">"Hali hammasi oldinda..."</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-24 px-4 text-center">
+      {/* Footer/Contact */}
+      <footer className="py-32 px-4 text-center">
         <div className="max-w-2xl mx-auto">
-          <h2 className="text-4xl font-display font-bold mb-6">Let's work together</h2>
-          <p className="text-xl text-muted-foreground mb-10">
-            Have a project in mind or just want to say hi? My inbox is always open.
+          <h2 className="text-4xl md:text-6xl font-display font-bold mb-8 tracking-tighter">Muloqot uchun</h2>
+          <p className="text-xl text-white/40 mb-12 font-light">
+            Savollaringiz bo'lsa yoki shunchaki fikr almashmoqchi bo'lsangiz, men bilan bog'laning.
           </p>
           <a
-            href="mailto:hello@example.com"
-            className="inline-flex items-center justify-center px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium hover:scale-105 transition-transform"
+            href="mailto:contact@muhammadali.me"
+            className="inline-flex items-center justify-center px-10 py-5 bg-white text-black rounded-full font-bold hover:bg-white/90 hover:scale-105 active:scale-95 transition-all duration-300"
           >
-            Get in touch
+            Xabar yuboring
           </a>
         </div>
-      </section>
+        <div className="mt-32 pt-8 border-t border-white/5 text-white/20 text-sm font-mono uppercase tracking-[0.2em]">
+          &copy; 2024 Muhammadali &bull; Security Student
+        </div>
+      </footer>
     </div>
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function InterestCard({ item, index }: { item: Project; index: number }) {
+  const Icon = item.icon;
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
       viewport={{ once: true }}
-      className="group bg-card border border-border rounded-2xl p-6 hover:shadow-xl transition-all"
+      className="group p-8 bg-white/[0.03] border border-white/10 rounded-[32px] hover:bg-white/[0.06] hover:border-white/20 transition-all duration-500"
     >
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex gap-2">
-          {project.tags.map((tag) => (
-            <span key={tag} className="text-xs font-medium px-2 py-1 bg-muted rounded-md text-muted-foreground">
-              {tag}
-            </span>
-          ))}
-        </div>
-        <a href={project.link} className="text-muted-foreground hover:text-primary transition-colors">
-          <ExternalLink size={20} />
-        </a>
+      <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-500">
+        <Icon className="w-6 h-6 text-white/60 group-hover:text-blue-400 transition-colors" />
       </div>
-      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
-      <p className="text-muted-foreground leading-relaxed">{project.description}</p>
+      <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">{item.title}</h3>
+      <p className="text-white/40 leading-relaxed font-light mb-6">{item.description}</p>
+      <div className="flex flex-wrap gap-2">
+        {item.tags.map((tag) => (
+          <span key={tag} className="text-[10px] uppercase tracking-widest font-bold px-2 py-1 bg-white/5 rounded-full text-white/40">
+            {tag}
+          </span>
+        ))}
+      </div>
     </motion.div>
   );
 }
@@ -142,9 +177,9 @@ function SocialLink({ href, icon: Icon, label }: { href: string; icon: LucideIco
     <a
       href={href}
       aria-label={label}
-      className="p-3 bg-muted hover:bg-primary hover:text-primary-foreground rounded-full transition-all hover:-translate-y-1"
+      className="w-14 h-14 flex items-center justify-center bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 hover:border-white/20 rounded-2xl transition-all duration-300 hover:-translate-y-1"
     >
-      <Icon size={24} />
+      <Icon size={24} strokeWidth={1.5} />
     </a>
   );
 }
